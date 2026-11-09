@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.pfx)",
+      "Read(./**/*.jks)",
+      "Read(./**/*.keystore)",
+      "Read(./**/key.properties)",
+      "Read(./**/google-services.json)",
+      "Read(./**/GoogleService-Info.plist)",
+      "Read(./**/*.p8)",
+      "Read(./**/*.p12)"
+    ]
+  }
+}
