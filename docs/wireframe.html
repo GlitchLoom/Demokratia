@@ -1,0 +1,836 @@
+<title>Demokratia — Wireframe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #eef1ee;
+    --paper-raised: #ffffff;
+    --ink: #16241f;
+    --ink-soft: #46564f;
+    --ink-faint: #7c8c85;
+    --line: rgba(22, 36, 31, 0.14);
+    --line-strong: rgba(22, 36, 31, 0.28);
+    --accent: #1f6e68;
+    --accent-ink: #ffffff;
+    --accent-tint: rgba(31, 110, 104, 0.1);
+    --accent-tint-strong: rgba(31, 110, 104, 0.18);
+    --good: #2f7a4d;
+    --good-tint: rgba(47, 122, 77, 0.12);
+    --warn: #a8631f;
+    --warn-tint: rgba(168, 99, 31, 0.12);
+    --danger: #a53f3f;
+    --danger-tint: rgba(165, 63, 63, 0.12);
+    --shadow: 0 1px 2px rgba(22, 36, 31, 0.06), 0 8px 24px -12px rgba(22, 36, 31, 0.22);
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0f1c19;
+      --paper-raised: #16261f;
+      --ink: #e7efe9;
+      --ink-soft: #aebdb5;
+      --ink-faint: #6f8079;
+      --line: rgba(231, 239, 233, 0.14);
+      --line-strong: rgba(231, 239, 233, 0.26);
+      --accent: #55bdb2;
+      --accent-ink: #06211d;
+      --accent-tint: rgba(85, 189, 178, 0.14);
+      --accent-tint-strong: rgba(85, 189, 178, 0.24);
+      --good: #6cbf8c;
+      --good-tint: rgba(108, 191, 140, 0.14);
+      --warn: #d69a5a;
+      --warn-tint: rgba(214, 154, 90, 0.14);
+      --danger: #d98b8b;
+      --danger-tint: rgba(217, 139, 139, 0.14);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0f1c19;
+    --paper-raised: #16261f;
+    --ink: #e7efe9;
+    --ink-soft: #aebdb5;
+    --ink-faint: #6f8079;
+    --line: rgba(231, 239, 233, 0.14);
+    --line-strong: rgba(231, 239, 233, 0.26);
+    --accent: #55bdb2;
+    --accent-ink: #06211d;
+    --accent-tint: rgba(85, 189, 178, 0.14);
+    --accent-tint-strong: rgba(85, 189, 178, 0.24);
+    --good: #6cbf8c;
+    --good-tint: rgba(108, 191, 140, 0.14);
+    --warn: #d69a5a;
+    --warn-tint: rgba(214, 154, 90, 0.14);
+    --danger: #d98b8b;
+    --danger-tint: rgba(217, 139, 139, 0.14);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+  }
+  :root[data-theme="light"] {
+    --paper: #eef1ee;
+    --paper-raised: #ffffff;
+    --ink: #16241f;
+    --ink-soft: #46564f;
+    --ink-faint: #7c8c85;
+    --line: rgba(22, 36, 31, 0.14);
+    --line-strong: rgba(22, 36, 31, 0.28);
+    --accent: #1f6e68;
+    --accent-ink: #ffffff;
+    --accent-tint: rgba(31, 110, 104, 0.1);
+    --accent-tint-strong: rgba(31, 110, 104, 0.18);
+    --good: #2f7a4d;
+    --good-tint: rgba(47, 122, 77, 0.12);
+    --warn: #a8631f;
+    --warn-tint: rgba(168, 99, 31, 0.12);
+    --danger: #a53f3f;
+    --danger-tint: rgba(165, 63, 63, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-tint-strong); }
+
+  .masthead {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .masthead .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.5rem;
+  }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 0 0 0.4rem;
+    text-wrap: balance;
+    letter-spacing: 0.01em;
+  }
+  .masthead p {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) 1fr;
+    gap: 0;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  nav.flow {
+    border-right: 1px solid var(--line);
+    padding: 1.25rem 0.75rem;
+    position: sticky;
+    top: 0;
+    align-self: start;
+  }
+  @media (max-width: 860px) {
+    nav.flow {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      position: static;
+      display: flex;
+      overflow-x: auto;
+      gap: 0.5rem;
+      padding: 0.75rem;
+    }
+  }
+  .flow-item {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0.6rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: var(--sans);
+  }
+  @media (max-width: 860px) {
+    .flow-item { width: auto; flex-shrink: 0; align-items: center; }
+    .flow-item .flow-copy p { display: none; }
+  }
+  .flow-item:hover { background: var(--accent-tint); }
+  .flow-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .flow-item.active { background: var(--accent-tint-strong); }
+  .flow-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    width: 1.6rem;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .flow-item.active .flow-num { color: var(--accent); }
+  .flow-copy strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  .flow-copy p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  .stage {
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  @media (max-width: 700px) {
+    .stage { grid-template-columns: 1fr; justify-items: center; }
+  }
+
+  /* phone frame */
+  .phone {
+    width: 300px;
+    height: 620px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 34px;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    flex-shrink: 0;
+  }
+  .phone-screen {
+    height: 100%;
+    width: 100%;
+    background: var(--paper);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .notch {
+    position: absolute;
+    top: 8px; left: 50%; transform: translateX(-50%);
+    width: 84px; height: 16px;
+    background: var(--ink);
+    opacity: 0.85;
+    border-radius: 10px;
+    z-index: 5;
+  }
+  .screen-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 14px 14px;
+    font-size: 0.82rem;
+  }
+  .screen-topbar {
+    padding: 30px 14px 8px;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .screen-topbar .city {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .chip-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+  }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  .event-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.7rem 0.75rem;
+    margin-bottom: 0.6rem;
+    background: var(--paper-raised);
+  }
+  .event-card .when {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .event-card h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 0.95rem;
+    margin: 0.2rem 0 0.25rem;
+    text-wrap: balance;
+  }
+  .event-card .meta {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+  .tag.corteo { background: var(--warn-tint); color: var(--warn); }
+  .tag.assemblea { background: var(--accent-tint); color: var(--accent); }
+  .tag.civico { background: var(--good-tint); color: var(--good); }
+  .tag.presidio { background: var(--danger-tint); color: var(--danger); }
+
+  .btn {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.55rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    cursor: pointer;
+    width: 100%;
+  }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn.small { width: auto; padding: 0.35rem 0.65rem; font-size: 0.7rem; }
+
+  .field { margin-bottom: 0.65rem; }
+  .field label {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+  .field .input {
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+  }
+
+  .map-block {
+    height: 90px;
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(45deg, var(--accent-tint), var(--accent-tint) 6px, transparent 6px, transparent 12px),
+      var(--paper-raised);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+  }
+
+  .divider { height: 1px; background: var(--line); margin: 0.8rem 0; border: none; }
+
+  .notif-row {
+    display: flex;
+    gap: 0.55rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .notif-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+  }
+  .notif-row.read .notif-dot { background: var(--line-strong); }
+  .notif-row p { margin: 0; font-size: 0.78rem; line-height: 1.4; }
+  .notif-row time {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+    margin-top: 0.15rem;
+  }
+
+  .org-header {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 0.7rem;
+  }
+  .org-mark {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--accent-tint-strong);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .stat-row { display: flex; gap: 1rem; margin: 0.6rem 0; }
+  .stat-row div { text-align: left; }
+  .stat-row strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-row span { font-size: 0.62rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.78rem;
+  }
+  .profile-row .lbl { color: var(--ink-soft); }
+  .profile-row .val { color: var(--ink-faint); font-family: var(--mono); font-size: 0.7rem; }
+
+  /* annotation panel */
+  .annotations h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.35rem;
+    margin: 0 0 0.2rem;
+    text-wrap: balance;
+  }
+  .annotations .sub {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: 0 0 1.2rem;
+    max-width: 62ch;
+  }
+  .responsibility-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 560px) {
+    .responsibility-grid { grid-template-columns: 1fr; }
+  }
+  .resp-col .head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .resp-col .head .swatch {
+    width: 10px; height: 10px; border-radius: 3px;
+  }
+  .resp-col.fe .swatch { background: var(--accent); }
+  .resp-col.be .swatch { background: var(--ink-faint); }
+  .resp-col .head span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .resp-col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .resp-col li {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .resp-col li:first-child { border-top: none; }
+  .resp-col li b { font-weight: 600; }
+
+  footer {
+    padding: 1.5rem clamp(1rem, 4vw, 3rem) 2.5rem;
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .screen-pane { animation: fade 0.18s ease; }
+  }
+  @keyframes fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+</style>
+
+<header class="masthead">
+  <p class="eyebrow">Demokratia — wireframe di flusso, v0.1</p>
+  <h1>Sette schermate, un solo canale civico</h1>
+  <p>Bozza a bassa fedeltà del percorso principale dell'app mobile (Flutter). Ogni schermata è annotata con ciò che ricade sul frontend e ciò che deve garantire il backend (Python), coerentemente con il documento di bootstrap.</p>
+</header>
+
+<div class="layout">
+  <nav class="flow" id="flow-nav" aria-label="Schermate del flusso"></nav>
+  <div class="stage">
+    <div class="phone" aria-hidden="false">
+      <div class="phone-screen">
+        <div class="notch"></div>
+        <div id="screen-mount"></div>
+      </div>
+    </div>
+    <div class="annotations" id="annotations"></div>
+  </div>
+</div>
+
+<footer>demokratia / docs / wireframe.html — bozza interna, non per la pubblicazione</footer>
+
+<script>
+  const screens = [
+    {
+      id: "onboarding",
+      label: "Onboarding",
+      hint: "Città e interessi, non un feed",
+      body: `
+        <div class="screen-topbar" style="display:block;">
+          <div style="font-family:var(--serif); font-size:1.15rem; margin-bottom:0.3rem;">Benvenuto su Demokratia</div>
+          <div class="city">passo 2 di 3</div>
+        </div>
+        <div class="screen-body">
+          <p style="color:var(--ink-soft); line-height:1.5; margin-top:0;">Quale città vuoi seguire? Potrai aggiungerne altre in seguito.</p>
+          <div class="field">
+            <label>Città</label>
+            <div class="input">Bologna</div>
+          </div>
+          <div class="divider"></div>
+          <p style="color:var(--ink-soft); font-size:0.78rem; margin-bottom:0.5rem;">Cosa vuoi vedere per primo? (puoi cambiarlo quando vuoi)</p>
+          <div class="chip-row">
+            <span class="chip on">Cortei</span>
+            <span class="chip on">Assemblee</span>
+            <span class="chip">Raccolte firme</span>
+            <span class="chip">Cultura civica</span>
+            <span class="chip">Scioperi</span>
+            <span class="chip">Dibattiti</span>
+          </div>
+          <div class="divider"></div>
+          <button class="btn">Continua</button>
+        </div>
+      `,
+      fe: [
+        ["Permessi & posizione", "Richiede il permesso di localizzazione (opzionale) per suggerire la città, senza bloccare chi rifiuta."],
+        ["Stato locale bozza", "Tiene in memoria le selezioni finché l'onboarding non è completo; niente chiamata API per ogni tap su un chip."],
+        ["Validazione leggera", "Il tasto “Continua” resta disabilitato finché non è selezionata almeno una città."],
+      ],
+      be: [
+        ["Elenco città supportate", "Espone le città/aree già attive (§10 City/Area) invece di un campo di testo libero, per garantire query geografiche coerenti."],
+        ["Creazione account", "Alla conferma crea lo User con città seguite e categorie di interesse iniziali; le categorie restano solo un pre-filtro, mai input per un ranking."],
+        ["Nessuna profilazione esterna", "I dati di interesse non lasciano il sistema: niente pixel di tracciamento, niente export verso terzi."],
+      ],
+    },
+    {
+      id: "feed",
+      label: "Feed",
+      hint: "Cronologico, filtrabile, senza algoritmo",
+      body: `
+        <div class="screen-topbar">
+          <div>Prossimi eventi</div>
+          <div class="city">Bologna</div>
+        </div>
+        <div class="screen-body">
+          <div class="chip-row">
+            <span class="chip on">Tutti</span>
+            <span class="chip">Questa settimana</span>
+            <span class="chip">Vicino a me</span>
+          </div>
+          <div class="event-card">
+            <span class="when">GIO 6 AGO · 18:00</span>
+            <h4>Corteo per il clima</h4>
+            <div class="meta"><span class="tag corteo">Corteo</span> Piazza Maggiore</div>
+          </div>
+          <div class="event-card">
+            <span class="when">VEN 7 AGO · 20:30</span>
+            <h4>Dibattito: casa e affitti a Bologna</h4>
+            <div class="meta"><span class="tag assemblea">Dibattito</span> Circolo Arci Guernelli</div>
+          </div>
+          <div class="event-card">
+            <span class="when">SAB 8 AGO · 10:00</span>
+            <h4>Raccolta firme: trasporto pubblico gratuito</h4>
+            <div class="meta"><span class="tag civico">Raccolta firme</span> Piazza VIII Agosto</div>
+          </div>
+          <div class="event-card">
+            <span class="when">LUN 10 AGO · 17:00</span>
+            <h4>Presidio contro la chiusura del centro sociale</h4>
+            <div class="meta"><span class="tag presidio">Presidio</span> Via Fioravanti</div>
+          </div>
+        </div>
+      `,
+      fe: [
+        ["Rendering cronologico", "Mostra gli eventi nell'ordine restituito dal backend (data/ora), senza riordinare o nascondere risultati lato client."],
+        ["Filtri espliciti", "I chip “Questa settimana” / “Vicino a me” sono query esplicite dell'utente, non personalizzazione automatica."],
+        ["Cache offline", "Tiene l'ultimo feed noto per l'apertura senza connessione; mostra un indicatore “dati non aggiornati”."],
+      ],
+      be: [
+        ["Query geo + data", "Filtra per città/area e ordina per data_inizio ascendente; nessun campo di “rilevanza” nel modello di risposta."],
+        ["Paginazione", "Restituisce pagine di eventi futuri per città, con cursore stabile anche se nel frattempo vengono creati nuovi eventi."],
+        ["Stato evento", "Esclude dal feed eventi in stato sospeso/rimosso mantenendo comunque l'audit log per la moderazione."],
+      ],
+    },
+    {
+      id: "detail",
+      label: "Dettaglio evento",
+      hint: "Fatti verificabili + un impegno esplicito",
+      body: `
+        <div class="screen-topbar" style="display:block;">
+          <div class="city">Corteo</div>
+          <div style="font-family:var(--serif); font-size:1.05rem; margin-top:0.2rem;">Corteo per il clima</div>
+        </div>
+        <div class="screen-body">
+          <div class="map-block">mappa · Piazza Maggiore</div>
+          <p style="margin:0 0 0.5rem; font-size:0.78rem; color:var(--ink-soft); line-height:1.5;">Ritrovo in Piazza Maggiore, corteo verso Piazza XX Settembre. Organizzato da Comitato Bologna Clima.</p>
+          <div class="chip-row">
+            <span class="chip">Gio 6 Ago · 18:00</span>
+            <span class="chip">Organizzatore verificato</span>
+          </div>
+          <button class="btn">Parteciperò</button>
+          <div class="divider"></div>
+          <label style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);">Promemoria</label>
+          <div class="chip-row" style="margin-top:0.4rem;">
+            <span class="chip on">1 settimana prima</span>
+            <span class="chip on">1 giorno prima</span>
+            <span class="chip">1 ora prima</span>
+          </div>
+          <button class="btn ghost" style="margin-top:0.6rem;">Segnala questo evento</button>
+        </div>
+      `,
+      fe: [
+        ["Deep link", "Il pulsante di condivisione genera un link che apre questa schermata anche da fuori app (o rimanda allo store se non installata)."],
+        ["Mappa", "Renderizza le coordinate ricevute dal backend; nessuna geocodifica lato client per evitare incongruenze con l'indirizzo ufficiale."],
+        ["Preferenze reminder", "Invia al backend solo la selezione delle soglie; la schedulazione effettiva dell'invio resta responsabilità server."],
+      ],
+      be: [
+        ["Integrità dei fatti", "Data, luogo e organizzatore sono campi vincolati e versionati: ogni modifica genera una notifica di modifica agli iscritti."],
+        ["Scheduling reminder", "Alla conferma “Parteciperò” crea i job di notifica alle soglie scelte, con retry se il push fallisce."],
+        ["Coda segnalazioni", "“Segnala” apre un Report collegato all'evento, visibile ai moderatori con motivo e stato, non un ban automatico."],
+      ],
+    },
+    {
+      id: "create",
+      label: "Crea evento",
+      hint: "Chiunque pubblica, gli stessi campi per tutti",
+      body: `
+        <div class="screen-topbar">
+          <div>Nuovo evento</div>
+        </div>
+        <div class="screen-body">
+          <div class="field"><label>Titolo</label><div class="input">Assemblea pubblica: piano traffico</div></div>
+          <div class="field"><label>Categoria</label><div class="input">Assemblea</div></div>
+          <div class="field"><label>Data e ora</label><div class="input">12 ago 2026 · 18:30</div></div>
+          <div class="field"><label>Luogo</label><div class="input">Sala Consiliare, Bologna</div></div>
+          <div class="field"><label>Pubblica come</label><div class="input">Cittadino / Comitato Bologna Clima</div></div>
+          <div class="field"><label>Descrizione</label><div class="input" style="height:2.4rem;">Discussione pubblica sul nuovo piano...</div></div>
+          <button class="btn">Pubblica evento</button>
+        </div>
+      `,
+      fe: [
+        ["Validazione form", "Blocca invii con data nel passato o campi obbligatori mancanti; il backend rivalida comunque tutto."],
+        ["Scelta identità", "Se l'utente amministra un'organizzazione, offre il selettore “pubblica come”; altrimenti pubblica come cittadino singolo."],
+        ["Bozza locale", "Salva la bozza in locale se l'utente esce a metà compilazione, per non far perdere il lavoro fatto."],
+      ],
+      be: [
+        ["Stesso schema per tutti", "Nessun campo o limite diverso tra cittadino e organizzazione: la parità di visibilità (§4.2) parte dal modello dati."],
+        ["Rate limiting mirato", "Applica limiti di frequenza sulla creazione eventi per singolo cittadino per contenere lo spam, non sulle organizzazioni verificate."],
+        ["Geocodifica server-side", "Risolve l'indirizzo in coordinate una sola volta, in modo coerente per feed, mappa e notifiche “vicino a me”."],
+      ],
+    },
+    {
+      id: "org",
+      label: "Organizzazione",
+      hint: "Stesso megafono, nessun boost",
+      body: `
+        <div class="screen-body" style="padding-top:30px;">
+          <div class="org-header">
+            <div class="org-mark">CB</div>
+            <div>
+              <div style="font-family:var(--serif); font-size:1rem;">Comitato Bologna Clima</div>
+              <div style="font-size:0.7rem; color:var(--ink-faint);">Comitato cittadino · Bologna</div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div><strong>1284</strong><span>Follower</span></div>
+            <div><strong>37</strong><span>Eventi pubblicati</span></div>
+            <div><strong>2019</strong><span>Attivo dal</span></div>
+          </div>
+          <button class="btn">Segui</button>
+          <div class="divider"></div>
+          <label style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);">Prossimi eventi</label>
+          <div class="event-card" style="margin-top:0.5rem;">
+            <span class="when">GIO 6 AGO · 18:00</span>
+            <h4>Corteo per il clima</h4>
+          </div>
+          <div class="event-card">
+            <span class="when">MER 2 SET · 19:00</span>
+            <h4>Assemblea mensile aperta</h4>
+          </div>
+        </div>
+      `,
+      fe: [
+        ["Follower aggregati", "Mostra solo il conteggio dei follower, mai l'elenco delle persone: nessuna lista pubblica di chi segue chi."],
+        ["Nessun rank", "Gli eventi dell'organizzazione appaiono in ordine cronologico, identico al trattamento riservato a un singolo cittadino."],
+        ["CTA “crea la tua organizzazione”", "Visibile dal profilo cittadino, non da qui: questa è la vista pubblica, non l'area di gestione."],
+      ],
+      be: [
+        ["Follow → notifica", "Ogni nuovo evento pubblicato da un'organizzazione seguita genera una notifica ai follower, non un'inserzione a pagamento."],
+        ["Amministratori multipli", "Un'organizzazione può avere più account con permessi di pubblicazione; nessun singolo punto di fallimento."],
+        ["Badge di verifica (v2)", "Se implementato, è solo trasparenza sull'identità reale dell'organizzazione, mai un fattore di visibilità nel feed."],
+      ],
+    },
+    {
+      id: "notifications",
+      label: "Notifiche",
+      hint: "Promemoria puntuali, non stimoli continui",
+      body: `
+        <div class="screen-topbar"><div>Notifiche</div></div>
+        <div class="screen-body">
+          <div class="notif-row">
+            <div class="notif-dot"></div>
+            <div>
+              <p><b>Domani</b> — Corteo per il clima, ore 18:00, Piazza Maggiore.</p>
+              <time>2 ore fa</time>
+            </div>
+          </div>
+          <div class="notif-row">
+            <div class="notif-dot"></div>
+            <div>
+              <p>Comitato Bologna Clima ha pubblicato un nuovo evento: Assemblea mensile aperta.</p>
+              <time>ieri</time>
+            </div>
+          </div>
+          <div class="notif-row read">
+            <div class="notif-dot"></div>
+            <div>
+              <p>Orario aggiornato: “Dibattito casa e affitti” ora inizia alle 20:30.</p>
+              <time>3 giorni fa</time>
+            </div>
+          </div>
+          <div class="notif-row read">
+            <div class="notif-dot"></div>
+            <div>
+              <p>Tra una settimana — Raccolta firme trasporto pubblico gratuito.</p>
+              <time>5 giorni fa</time>
+            </div>
+          </div>
+        </div>
+      `,
+      fe: [
+        ["Push + centro notifiche", "Registra il device token (FCM/APNs) e mostra qui lo storico anche di notifiche già arrivate come push."],
+        ["Deep link diretto", "Ogni riga apre direttamente il dettaglio evento o organizzazione collegata, non una schermata generica."],
+        ["Stato letto/non letto", "Riflette localmente lo stato e lo sincronizza al backend, senza badge di conteggio pensati per massimizzare i ritorni in app."],
+      ],
+      be: [
+        ["Tre soli motivi di notifica", "Reminder iscrizione, nuovo evento da seguito, modifica/cancellazione a evento iscritto: nessun'altra categoria “engagement”."],
+        ["Dispatch affidabile", "Coda di invio con retry e log per garantire che i reminder critici (§14 metriche) arrivino in tempo utile."],
+        ["Nessun invio ridondante", "Deduplica notifiche quando più condizioni si verificano insieme (es. modifica + reminder lo stesso giorno)."],
+      ],
+    },
+    {
+      id: "profile",
+      label: "Profilo",
+      hint: "Cosa segui, cosa controlli",
+      body: `
+        <div class="screen-topbar"><div>Il tuo profilo</div></div>
+        <div class="screen-body">
+          <div class="profile-row"><span class="lbl">Città seguite</span><span class="val">Bologna</span></div>
+          <div class="profile-row"><span class="lbl">Organizzazioni seguite</span><span class="val">4</span></div>
+          <div class="profile-row"><span class="lbl">Eventi salvati</span><span class="val">7</span></div>
+          <div class="profile-row"><span class="lbl">Reminder predefiniti</span><span class="val">1g, 1h prima</span></div>
+          <div class="divider"></div>
+          <button class="btn">Crea la tua organizzazione</button>
+          <button class="btn ghost" style="margin-top:0.5rem;">Esporta o cancella i miei dati</button>
+        </div>
+      `,
+      fe: [
+        ["Gestione sessione", "Storage sicuro del token, logout esplicito, refresh silenzioso in background."],
+        ["Percorso creazione org", "Da qui parte il flusso “richiedi profilo organizzazione”, separato dall'iscrizione cittadino di base."],
+        ["Controllo dati in chiaro", "Il pulsante di export/cancellazione è visibile allo stesso livello delle altre impostazioni, non nascosto in sottomenu."],
+      ],
+      be: [
+        ["Diritto all'oblio", "Cancellazione account rimuove o anonimizza i dati personali nel rispetto del GDPR, mantenendo solo dati aggregati non riconducibili."],
+        ["Nessuna vendita dati", "L'endpoint di export restituisce solo i dati dell'utente stesso; non esistono endpoint di estrazione massiva per terzi."],
+        ["Promozione a organizzazione", "Crea un nuovo record Organization con l'utente come admin, senza toccare l'account cittadino esistente."],
+      ],
+    },
+  ];
+
+  const nav = document.getElementById("flow-nav");
+  const mount = document.getElementById("screen-mount");
+  const annotations = document.getElementById("annotations");
+
+  function renderNav(activeId) {
+    nav.innerHTML = "";
+    screens.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.className = "flow-item" + (s.id === activeId ? " active" : "");
+      btn.setAttribute("aria-current", s.id === activeId ? "true" : "false");
+      btn.innerHTML = `
+        <span class="flow-num">${String(i + 1).padStart(2, "0")}</span>
+        <span class="flow-copy"><strong>${s.label}</strong><p>${s.hint}</p></span>
+      `;
+      btn.addEventListener("click", () => show(s.id));
+      nav.appendChild(btn);
+    });
+  }
+
+  function renderAnnotations(s) {
+    annotations.innerHTML = `
+      <h2>${s.label}</h2>
+      <p class="sub">${s.hint}</p>
+      <div class="responsibility-grid">
+        <div class="resp-col fe">
+          <div class="head"><span class="swatch"></span><span>Frontend — Flutter</span></div>
+          <ul>${s.fe.map(([t, d]) => `<li><b>${t}.</b> ${d}</li>`).join("")}</ul>
+        </div>
+        <div class="resp-col be">
+          <div class="head"><span class="swatch"></span><span>Backend — Python</span></div>
+          <ul>${s.be.map(([t, d]) => `<li><b>${t}.</b> ${d}</li>`).join("")}</ul>
+        </div>
+      </div>
+    `;
+  }
+
+  function show(id) {
+    const s = screens.find((x) => x.id === id);
+    mount.innerHTML = `<div class="screen-pane">${s.body}</div>`;
+    renderNav(id);
+    renderAnnotations(s);
+  }
+
+  show(screens[0].id);
+</script>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title>Demokratia — Design System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #ede6d3; --paper-raised: #faf6ea; --ink: #241f2e; --ink-soft: #524a5e; --ink-faint: #8a8290;
+    --line: rgba(36, 31, 46, 0.14); --line-strong: rgba(36, 31, 46, 0.30);
+    --accent: #2b3a67; --accent-ink: #f4f1e6; --accent-tint: rgba(43, 58, 103, 0.1); --accent-tint-strong: rgba(43, 58, 103, 0.18);
+    --good: #3d6b4a; --good-tint: rgba(61, 107, 74, 0.12);
+    --warn: #a66a1e; --warn-tint: rgba(166, 106, 30, 0.12);
+    --danger: #a13a2e; --danger-tint: rgba(161, 58, 46, 0.12);
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: 2rem; margin-bottom: 0.3rem; }
+  .subtitle { font-size: 0.95rem; color: var(--ink-faint); margin-bottom: 2.5rem; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; color: var(--ink); margin: 3rem 0 1.1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
+  h3 { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .grid { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: flex-start; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+  .box { background: var(--paper-raised); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--line); }
+  code { font-family: var(--mono); font-size: 0.72rem; background: var(--paper); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--ink-soft); }
+  hr { border: none; border-top: 1px solid var(--line); margin: 3rem 0; }
+
+  .swatch-row { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .swatch { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); min-width: 130px; }
+  .swatch-color { height: 60px; }
+  .swatch-info { background: var(--paper-raised); padding: 0.55rem 0.7rem; }
+  .swatch-name { font-size: 0.78rem; font-weight: 600; }
+  .swatch-hex { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-faint); }
+  .swatch-use { font-size: 0.68rem; color: var(--ink-faint); margin-top: 0.15rem; }
+
+  .type-row { display: flex; flex-direction: column; }
+  .type-item { display: flex; align-items: baseline; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); }
+  .type-sample { flex: 1; }
+  .type-meta { text-align: right; flex-shrink: 0; }
+  .type-role { font-size: 0.66rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
+  .type-spec { font-size: 0.66rem; color: var(--ink-faint); font-family: var(--mono); }
+
+  .btn { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; padding: 0.55rem 0.9rem; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: default; display: inline-flex; }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+  .btn.joined { background: var(--good-tint); border-color: var(--good); color: var(--good); }
+  .btn.small { padding: 0.4rem 0.7rem; font-size: 0.7rem; }
+
+  .chip { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.03em; padding: 0.32rem 0.6rem; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink-soft); background: var(--paper-raised); display: inline-flex; }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  .tag { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.16rem 0.42rem; border-radius: 4px; display: inline-flex; }
+  .tag.corteo { background: var(--warn-tint); color: var(--warn); }
+  .tag.assemblea { background: var(--accent-tint); color: var(--accent); }
+  .tag.civico { background: var(--good-tint); color: var(--good); }
+  .tag.sciopero { background: var(--danger-tint); color: var(--danger); }
+  .tag.altro { background: var(--line); color: var(--ink-soft); }
+
+  .event-card-demo { border: 1px solid var(--line); border-radius: 10px; padding: 0.75rem 0.8rem; background: var(--paper-raised); max-width: 300px; }
+  .event-card-demo .when { font-family: var(--mono); font-size: 0.66rem; color: var(--accent); }
+  .event-card-demo h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0.25rem 0 0.3rem; }
+  .event-card-demo .meta { font-size: 0.72rem; color: var(--ink-faint); display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .card-foot { display: flex; align-items: center; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+  .avatars-stack { display: flex; }
+  .avatars-stack span { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--paper-raised); font-size: 0.55rem; font-weight: 700; display: flex; align-items: center; justify-content: center; color: var(--accent-ink); background: var(--accent); margin-left: -6px; }
+  .avatars-stack span:first-child { margin-left: 0; }
+  .going-count { font-size: 0.68rem; color: var(--ink-faint); }
+
+  .nav-demo { background: var(--paper-raised); border-top: 1px solid var(--line); border-radius: 0 0 12px 12px; display: flex; align-items: center; justify-content: space-around; padding: 0.6rem 0 1rem; }
+  .nav-item-demo { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .nav-glyph { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink-faint); }
+  .nav-item-demo.active .nav-glyph { background: var(--accent); border-color: var(--accent); }
+  .nav-label { font-size: 0.62rem; color: var(--ink-faint); font-weight: 600; }
+  .nav-item-demo.active .nav-label { color: var(--accent); }
+  .nav-fab-demo { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-top: -16px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  th { text-align: left; padding: 0.5rem 0.7rem; background: var(--paper); font-weight: 600; color: var(--ink-soft); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: none; }
+
+  .toc { background: var(--paper-raised); border-radius: 12px; padding: 1.2rem 1.4rem; border: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .toc ul { list-style: none; columns: 2; }
+  .toc li { padding: 0.15rem 0; }
+  .toc a { color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.82rem; }
+  .toc a:hover { text-decoration: underline; }
+
+  .tone-row { display: flex; flex-direction: column; gap: 0.6rem; }
+  .tone-item { padding: 0.6rem 0.7rem; border-radius: 8px; }
+  .tone-good { background: var(--good-tint); border: 1px solid var(--good); }
+  .tone-bad { background: var(--danger-tint); border: 1px solid var(--danger); }
+  .tone-tag { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .tone-good .tone-tag { color: var(--good); }
+  .tone-bad .tone-tag { color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Demokratia</h1>
+  <p class="subtitle">Design System v0.2 — riferimento del mockup · Agosto 2026</p>
+
+  <div class="toc">
+    <h3>Indice</h3>
+    <ul>
+      <li><a href="#colori">1. Palette colori</a></li>
+      <li><a href="#tipografia">2. Tipografia</a></li>
+      <li><a href="#bottoni">3. Bottoni</a></li>
+      <li><a href="#chip">4. Chip e categorie</a></li>
+      <li><a href="#card">5. Card evento</a></li>
+      <li><a href="#nav">6. Navigazione</a></li>
+      <li><a href="#schermate">7. Architettura schermate</a></li>
+      <li><a href="#voce">8. Tone of voice</a></li>
+    </ul>
+  </div>
+
+  <h2 id="colori">1. Palette colori</h2>
+  <h3>Colori funzionali</h3>
+  <div class="swatch-row">
+    <div class="swatch"><div class="swatch-color" style="background:#2b3a67"></div><div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#2B3A67</div><div class="swatch-use">CTA, link, stato attivo — blu-indaco da timbro</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#3d6b4a"></div><div class="swatch-info"><div class="swatch-name">Good</div><div class="swatch-hex">#3D6B4A</div><div class="swatch-use">Cultura civica, conferme</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#a66a1e"></div><div class="swatch-info"><div class="swatch-name">Warn</div><div class="swatch-hex">#A66A1E</div><div class="swatch-use">Cortei, manifestazioni</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#a13a2e"></div><div class="swatch-info"><div class="swatch-name">Danger</div><div class="swatch-hex">#A13A2E</div><div class="swatch-use">Presidi, scioperi, segnalazioni</div></div></div>
+  </div>
+  <h3 style="margin-top:1.5rem">Colori neutri</h3>
+  <div class="swatch-row">
+    <div class="swatch"><div class="swatch-color" style="background:#241f2e"></div><div class="swatch-info"><div class="swatch-name">Ink</div><div class="swatch-hex">#241F2E</div><div class="swatch-use">Testo principale</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#524a5e"></div><div class="swatch-info"><div class="swatch-name">Ink soft</div><div class="swatch-hex">#524A5E</div><div class="swatch-use">Corpo testo</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8a8290"></div><div class="swatch-info"><div class="swatch-name">Ink faint</div><div class="swatch-hex">#8A8290</div><div class="swatch-use">Metadati, timestamp</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ede6d3"></div><div class="swatch-info"><div class="swatch-name">Paper</div><div class="swatch-hex">#EDE6D3</div><div class="swatch-use">Sfondo app — carta manila</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#faf6ea;border-bottom:1px solid var(--line)"></div><div class="swatch-info"><div class="swatch-name">Paper raised</div><div class="swatch-hex">#FAF6EA</div><div class="swatch-use">Card, header, nav</div></div></div>
+  </div>
+  <div class="box" style="margin-top:1.2rem">
+    <h3>Nota</h3>
+    <p style="font-size:0.8rem; color:var(--ink-soft); line-height:1.5;">
+      La palette esiste anche in variante dark (<code>prefers-color-scheme</code> + <code>data-theme</code>), definita in <code>index.html</code>.
+      A differenza di un'app "calda" come QuartiereDigitale, Demokratia usa colori saturi solo come segnale funzionale
+      (categoria evento, stato), mai come decorazione: coerente con §4.1 del bootstrap — nessun ranking, nessun boost visivo.
+    </p>
+  </div>
+
+  <h2 id="tipografia">2. Tipografia</h2>
+  <div class="box">
+    <div style="margin-bottom:1.2rem">
+      <h3>Font family</h3>
+      <p style="font-size:0.82rem; color:var(--ink-soft); margin-bottom:0.4rem;">
+        <strong style="font-family:var(--serif)">Serif (Georgia)</strong> per titoli — tono editoriale, non da app di engagement.
+        <strong>Sans di sistema</strong> per UI e corpo testo. <strong style="font-family:var(--mono)">Mono</strong> per metadati, date, eyebrow.
+      </p>
+      <code>--serif: Georgia, ... · --sans: -apple-system, ... · --mono: ui-monospace, ...</code>
+    </div>
+    <h3>Scala tipografica</h3>
+    <div class="type-row">
+      <div class="type-item"><div class="type-sample" style="font-family:var(--serif); font-size:2rem;">Titolo pagina</div><div class="type-meta"><div class="type-role">H1</div><div class="type-spec">2rem / serif / 400</div></div></div>
+      <div class="type-item"><div class="type-sample" style="font-family:var(--serif); font-size:1.15rem;">Titolo schermata</div><div class="type-meta"><div class="type-role">Topbar / H3</div><div class="type-spec">1.15rem / serif / 400</div></div></div>
+      <div class="type-item"><div class="type-sample" style="font-family:var(--serif); font-size:0.95rem;">Titolo evento</div><div class="type-meta"><div class="type-role">Card title</div><div class="type-spec">0.95rem / serif / 400</div></div></div>
+      <div class="type-item"><div class="type-sample" style="font-size:0.82rem;">Corpo testo descrittivo, usato per descrizioni evento e testo generico.</div><div class="type-meta"><div class="type-role">Body</div><div class="type-spec">0.8–0.82rem / sans / 400</div></div></div>
+      <div class="type-item"><div class="type-sample" style="font-family:var(--mono); font-size:0.66rem; color:var(--accent);">GIO 6 AGO · 18:00</div><div class="type-meta"><div class="type-role">Data / eyebrow</div><div class="type-spec">0.66rem / mono</div></div></div>
+      <div class="type-item"><div class="type-sample" style="font-size:0.72rem; color:var(--ink-faint);">metadati, luogo, timestamp</div><div class="type-meta"><div class="type-role">Meta</div><div class="type-spec">0.7–0.72rem / sans</div></div></div>
+    </div>
+  </div>
+
+  <h2 id="bottoni">3. Bottoni</h2>
+  <div class="box">
+    <table>
+      <tr><th>Variante</th><th>Resa</th><th>Uso</th></tr>
+      <tr><td>Primary</td><td><button class="btn">Parteciperò</button></td><td>CTA principale di schermata</td></tr>
+      <tr><td>Ghost</td><td><button class="btn ghost">Segnala questo evento</button></td><td>Azione secondaria, meno prominente</td></tr>
+      <tr><td>Joined / stato attivo</td><td><button class="btn joined">✓ Parteciperò</button></td><td>Conferma di un impegno esplicito dell'utente (mai inferito)</td></tr>
+      <tr><td>Danger</td><td><button class="btn danger">Rivedi onboarding</button></td><td>Azioni distruttive o di reset</td></tr>
+      <tr><td>Small</td><td><button class="btn small">Segui</button></td><td>Liste, card compatte</td></tr>
+    </table>
+  </div>
+
+  <h2 id="chip">4. Chip e categorie</h2>
+  <div class="box">
+    <h3>Filtri feed (espliciti, mai automatici)</h3>
+    <div class="grid" style="margin-bottom:1.2rem">
+      <span class="chip on">Tutti</span>
+      <span class="chip">Questa settimana</span>
+      <span class="chip">Vicino a me</span>
+    </div>
+    <h3>Tag categoria evento</h3>
+    <div class="grid">
+      <span class="tag corteo">Corteo</span>
+      <span class="tag assemblea">Assemblea</span>
+      <span class="tag civico">Cultura civica</span>
+      <span class="tag sciopero">Sciopero</span>
+      <span class="tag altro">Altro</span>
+    </div>
+    <p style="font-size:0.78rem; color:var(--ink-soft); margin-top:0.8rem;">Ogni categoria ha un solo colore fisso — non indica priorità, solo tipo di evento (§4.1: nessun ranking opaco).</p>
+  </div>
+
+  <h2 id="card">5. Card evento</h2>
+  <div class="event-card-demo">
+    <span class="when">GIO 6 AGO · 18:00</span>
+    <h4>Corteo per il clima</h4>
+    <div class="meta"><span class="tag corteo">Corteo</span><span>Piazza Maggiore</span></div>
+    <div class="card-foot">
+      <div class="avatars-stack"><span>C</span><span>M</span><span>R</span></div>
+      <span class="going-count">+342 partecipano</span>
+    </div>
+  </div>
+  <p style="font-size:0.78rem; color:var(--ink-soft); margin-top:0.8rem; max-width:500px;">
+    Ordine sempre cronologico (data_inizio ascendente), mai per popolarità o engagement — il conteggio "partecipano" è informativo, non un fattore di ordinamento (§6, Feed).
+  </p>
+
+  <h2 id="nav">6. Navigazione</h2>
+  <div class="grid-2">
+    <div class="box">
+      <h3>Bottom navigation</h3>
+      <div class="nav-demo">
+        <div class="nav-item-demo active"><span class="nav-glyph"></span><span class="nav-label">Feed</span></div>
+        <div class="nav-fab-demo">+</div>
+        <div class="nav-item-demo"><span class="nav-glyph"></span><span class="nav-label">Notifiche</span></div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--ink-soft); margin-top:0.8rem;">Solo 2 tab + FAB centrale ("Crea evento"). Il profilo è raggiungibile dal FAB in versioni successive o da un'icona in topbar — l'MVP mantiene la barra minima.</p>
+    </div>
+    <div class="box">
+      <h3>Schermate push (back button)</h3>
+      <table>
+        <tr><td>Dettaglio evento</td><td style="color:var(--ink-faint)">da: card in feed, notifiche</td></tr>
+        <tr><td>Profilo organizzazione</td><td style="color:var(--ink-faint)">da: nome organizzatore nel dettaglio</td></tr>
+        <tr><td>Onboarding</td><td style="color:var(--ink-faint)">primo avvio, 2 passi</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="schermate">7. Architettura schermate</h2>
+  <div class="box">
+    <table>
+      <tr><th>Schermata</th><th>Tipo</th><th>Note</th></tr>
+      <tr><td>Onboarding</td><td>Flusso iniziale</td><td>Città + categorie di interesse, pre-filtro non profilazione</td></tr>
+      <tr><td>Feed</td><td>Tab principale</td><td>Cronologico, filtri espliciti (data/distanza/categoria)</td></tr>
+      <tr><td>Dettaglio evento</td><td>Push</td><td>Fatti verificabili + impegno esplicito ("Parteciperò")</td></tr>
+      <tr><td>Crea evento</td><td>Modale bottom sheet</td><td>Stesso form per cittadino e organizzazione</td></tr>
+      <tr><td>Organizzazione</td><td>Push</td><td>Follower aggregati, nessuna lista pubblica di chi segue</td></tr>
+      <tr><td>Notifiche</td><td>Tab principale</td><td>Solo 3 motivi: reminder, nuovo evento da seguito, modifica/cancellazione</td></tr>
+      <tr><td>Profilo</td><td>Tab principale</td><td>Controllo dati (export/cancellazione) allo stesso livello delle altre voci</td></tr>
+    </table>
+  </div>
+
+  <h2 id="voce">8. Tone of voice</h2>
+  <div class="tone-row">
+    <div class="tone-item tone-good"><div class="tone-tag">✓ Sì</div><div>Parteciperò</div></div>
+    <div class="tone-item tone-bad"><div class="tone-tag">✗ No</div><div>Iscriviti ora! Non perdertelo</div></div>
+    <div class="tone-item tone-good"><div class="tone-tag">✓ Sì</div><div>+342 partecipano</div></div>
+    <div class="tone-item tone-bad"><div class="tone-tag">✗ No</div><div>🔥 Evento del momento, tantissimi iscritti!</div></div>
+    <div class="tone-item tone-good"><div class="tone-tag">✓ Sì</div><div>Organizzatore verificato</div></div>
+    <div class="tone-item tone-bad"><div class="tone-tag">✗ No</div><div>Organizzatore premium ⭐</div></div>
+  </div>
+  <p style="font-size:0.78rem; color:var(--ink-soft); margin-top:1rem; max-width:600px;">
+    Registro sobrio, fattuale, senza urgenza artificiale né gamification — coerente con §8 del bootstrap (nessun dark pattern per aumentare il tempo in app).
+  </p>
+
+  <hr>
+  <p style="font-size:0.72rem; color:var(--ink-faint); text-align:center; font-family:var(--mono);">demokratia / docs / mockup / design-system.html — v0.2</p>
+</div>
+</body>
+</html>

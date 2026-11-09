@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title>Demokratia — Mockup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #ede6d3;
+    --paper-raised: #faf6ea;
+    --ink: #241f2e;
+    --ink-soft: #524a5e;
+    --ink-faint: #8a8290;
+    --line: rgba(36, 31, 46, 0.14);
+    --line-strong: rgba(36, 31, 46, 0.30);
+    --accent: #2b3a67;
+    --accent-ink: #f4f1e6;
+    --accent-tint: rgba(43, 58, 103, 0.1);
+    --accent-tint-strong: rgba(43, 58, 103, 0.18);
+    --good: #3d6b4a;
+    --good-tint: rgba(61, 107, 74, 0.12);
+    --warn: #a66a1e;
+    --warn-tint: rgba(166, 106, 30, 0.12);
+    --danger: #a13a2e;
+    --danger-tint: rgba(161, 58, 46, 0.12);
+    --shadow: 0 1px 2px rgba(36, 31, 46, 0.06), 0 8px 24px -12px rgba(36, 31, 46, 0.22);
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #191925; --paper-raised: #21212f; --ink: #ece9f2; --ink-soft: #bab5c6; --ink-faint: #837c93;
+      --line: rgba(236, 233, 242, 0.14); --line-strong: rgba(236, 233, 242, 0.26);
+      --accent: #7288c9; --accent-ink: #14141d; --accent-tint: rgba(114, 136, 201, 0.16); --accent-tint-strong: rgba(114, 136, 201, 0.26);
+      --good: #7bb187; --good-tint: rgba(123, 177, 135, 0.16);
+      --warn: #d6a25c; --warn-tint: rgba(214, 162, 92, 0.16);
+      --danger: #d1897c; --danger-tint: rgba(209, 137, 124, 0.16);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #191925; --paper-raised: #21212f; --ink: #ece9f2; --ink-soft: #bab5c6; --ink-faint: #837c93;
+    --line: rgba(236, 233, 242, 0.14); --line-strong: rgba(236, 233, 242, 0.26);
+    --accent: #7288c9; --accent-ink: #14141d; --accent-tint: rgba(114, 136, 201, 0.16); --accent-tint-strong: rgba(114, 136, 201, 0.26);
+    --good: #7bb187; --good-tint: rgba(123, 177, 135, 0.16);
+    --warn: #d6a25c; --warn-tint: rgba(214, 162, 92, 0.16);
+    --danger: #d1897c; --danger-tint: rgba(209, 137, 124, 0.16);
+  }
+  :root[data-theme="light"] {
+    --paper: #ede6d3; --paper-raised: #faf6ea; --ink: #241f2e; --ink-soft: #524a5e; --ink-faint: #8a8290;
+    --line: rgba(36, 31, 46, 0.14); --line-strong: rgba(36, 31, 46, 0.30);
+    --accent: #2b3a67; --accent-ink: #f4f1e6; --accent-tint: rgba(43, 58, 103, 0.1); --accent-tint-strong: rgba(43, 58, 103, 0.18);
+    --good: #3d6b4a; --good-tint: rgba(61, 107, 74, 0.12);
+    --warn: #a66a1e; --warn-tint: rgba(166, 106, 30, 0.12);
+    --danger: #a13a2e; --danger-tint: rgba(161, 58, 46, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  ::selection { background: var(--accent-tint-strong); }
+
+  .page-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1rem 4rem;
+    gap: 1.5rem;
+  }
+  .intro { max-width: 420px; text-align: center; }
+  .intro .eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.5rem;
+  }
+  .intro h1 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; margin: 0 0 0.4rem; }
+  .intro p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; line-height: 1.5; }
+  .intro a { color: var(--accent); }
+
+  /* phone frame */
+  .phone {
+    width: 320px; height: 660px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 36px;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    flex-shrink: 0;
+  }
+  .phone-screen {
+    height: 100%; width: 100%;
+    background: var(--paper);
+    border-radius: 26px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .notch {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    width: 84px; height: 16px; background: var(--ink); opacity: 0.85; border-radius: 10px; z-index: 30;
+  }
+  .status-bar {
+    padding: 30px 16px 4px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 0.65rem; color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  .screens { position: relative; flex: 1; min-height: 0; }
+  .screen {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column; min-height: 0;
+    background: var(--paper);
+  }
+  .screen.active { display: flex; }
+  @media (prefers-reduced-motion: no-preference) {
+    .screen.active { animation: fade 0.16s ease; }
+  }
+  @keyframes fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+  .topbar {
+    padding: 6px 16px 10px;
+    font-family: var(--serif); font-size: 1.1rem;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem;
+    border-bottom: 1px solid var(--line); flex-shrink: 0;
+  }
+  .topbar .city {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase;
+  }
+  .pushbar {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 6px 12px 10px; border-bottom: 1px solid var(--line); flex-shrink: 0;
+  }
+  .back-btn {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid var(--line-strong); background: var(--paper-raised);
+    color: var(--ink); font-size: 0.9rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .back-btn:hover { background: var(--accent-tint); }
+  .pushbar .title { font-family: var(--serif); font-size: 1rem; }
+
+  .body-scroll { flex: 1; overflow-y: auto; padding: 14px; font-size: 0.82rem; }
+
+  .chip-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .chip {
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.03em;
+    padding: 0.32rem 0.6rem; border-radius: 999px; border: 1px solid var(--line-strong);
+    color: var(--ink-soft); background: var(--paper-raised); cursor: pointer; white-space: nowrap;
+  }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  .event-card {
+    border: 1px solid var(--line); border-radius: 10px; padding: 0.75rem 0.8rem;
+    margin-bottom: 0.6rem; background: var(--paper-raised); cursor: pointer;
+  }
+  .event-card:hover { border-color: var(--line-strong); }
+  .event-card .when { font-family: var(--mono); font-size: 0.66rem; color: var(--accent); letter-spacing: 0.02em; }
+  .event-card h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0.25rem 0 0.3rem; text-wrap: balance; }
+  .event-card .meta { font-size: 0.72rem; color: var(--ink-faint); display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+  .tag { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.16rem 0.42rem; border-radius: 4px; flex-shrink: 0; }
+  .tag.corteo, .tag.manifestazione { background: var(--warn-tint); color: var(--warn); }
+  .tag.assemblea, .tag.dibattito { background: var(--accent-tint); color: var(--accent); }
+  .tag.civico, .tag.raccolta { background: var(--good-tint); color: var(--good); }
+  .tag.presidio, .tag.sciopero { background: var(--danger-tint); color: var(--danger); }
+  .tag.altro { background: var(--line); color: var(--ink-soft); }
+
+  .card-foot { display: flex; align-items: center; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+  .avatars-stack { display: flex; }
+  .avatars-stack span {
+    width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--paper-raised);
+    font-size: 0.55rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    color: var(--accent-ink); background: var(--accent); margin-left: -6px;
+  }
+  .avatars-stack span:first-child { margin-left: 0; }
+  .going-count { font-size: 0.68rem; color: var(--ink-faint); }
+
+  .btn {
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 600; padding: 0.55rem 0.9rem;
+    border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+    cursor: pointer; width: 100%;
+  }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+  .btn.small { width: auto; padding: 0.4rem 0.7rem; font-size: 0.7rem; }
+  .btn.joined { background: var(--good-tint); border-color: var(--good); color: var(--good); }
+  .btn:disabled { opacity: 0.6; cursor: default; }
+
+  .field { margin-bottom: 0.65rem; }
+  .field label { display: block; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin-bottom: 0.25rem; }
+  .field input, .field textarea, .field select {
+    width: 100%; border: 1px solid var(--line-strong); border-radius: 7px; padding: 0.45rem 0.6rem;
+    font-size: 0.8rem; color: var(--ink); background: var(--paper-raised); font-family: var(--sans);
+  }
+  .field textarea { resize: none; height: 3.4rem; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .segmented { display: flex; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+  .segmented button {
+    flex: 1; padding: 0.45rem 0.4rem; font-size: 0.72rem; font-family: var(--sans); font-weight: 600;
+    border: none; background: var(--paper-raised); color: var(--ink-soft); cursor: pointer;
+  }
+  .segmented button.on { background: var(--accent); color: var(--accent-ink); }
+
+  .map-block {
+    height: 90px; border-radius: 8px;
+    background: repeating-linear-gradient(45deg, var(--accent-tint), var(--accent-tint) 6px, transparent 6px, transparent 12px), var(--paper-raised);
+    border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.65rem; color: var(--accent); margin-bottom: 0.7rem;
+  }
+
+  .divider { height: 1px; background: var(--line); margin: 0.8rem 0; border: none; }
+
+  .notif-row { display: flex; gap: 0.55rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .notif-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 0.35rem; flex-shrink: 0; }
+  .notif-row.read .notif-dot { background: var(--line-strong); }
+  .notif-row p { margin: 0; font-size: 0.78rem; line-height: 1.4; }
+  .notif-row time { display: block; font-family: var(--mono); font-size: 0.62rem; color: var(--ink-faint); margin-top: 0.15rem; }
+
+  .org-header { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.7rem; }
+  .org-mark {
+    width: 42px; height: 42px; border-radius: 10px; background: var(--accent-tint-strong); color: var(--accent);
+    display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.1rem; flex-shrink: 0;
+  }
+  .stat-row { display: flex; gap: 1.1rem; margin: 0.6rem 0; }
+  .stat-row div { text-align: left; }
+  .stat-row strong { display: block; font-family: var(--mono); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .stat-row span { font-size: 0.6rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .profile-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0; border-bottom: 1px solid var(--line); font-size: 0.78rem; }
+  .profile-row .lbl { color: var(--ink-soft); }
+  .profile-row .val { color: var(--ink-faint); font-family: var(--mono); font-size: 0.7rem; }
+
+  .section-label { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin: 0 0 0.5rem; }
+
+  /* onboarding */
+  .ob-step { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase; }
+  .ob-title { font-family: var(--serif); font-size: 1.15rem; margin: 0.25rem 0 0.6rem; }
+  .ob-progress { display: flex; gap: 0.3rem; margin-bottom: 1rem; }
+  .ob-progress span { flex: 1; height: 3px; border-radius: 2px; background: var(--line); }
+  .ob-progress span.done { background: var(--accent); }
+  .skip-link { display: block; text-align: center; margin-top: 0.6rem; font-size: 0.72rem; color: var(--ink-faint); background: none; border: none; cursor: pointer; width: 100%; }
+
+  /* bottom nav */
+  .bottom-nav {
+    display: flex; align-items: center; justify-content: space-around;
+    border-top: 1px solid var(--line); background: var(--paper-raised);
+    padding: 8px 6px 16px; flex-shrink: 0; position: relative; z-index: 10;
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    border: none; background: none; cursor: pointer; padding: 4px 10px; font-family: var(--sans);
+  }
+  .nav-glyph { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink-faint); }
+  .nav-item.active .nav-glyph { background: var(--accent); border-color: var(--accent); }
+  .nav-label { font-size: 0.62rem; color: var(--ink-faint); font-weight: 600; }
+  .nav-item.active .nav-label { color: var(--accent); }
+  .nav-fab {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: var(--accent-ink);
+    border: none; font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    margin-top: -18px; box-shadow: var(--shadow);
+  }
+
+  /* modal bottom sheet */
+  .modal-overlay {
+    position: absolute; inset: 0; background: rgba(15, 25, 21, 0.5); z-index: 100;
+    display: none; align-items: flex-end; border-radius: 26px; overflow: hidden;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--paper-raised); border-radius: 20px 20px 0 0; width: 100%; padding: 14px 16px 22px;
+    max-height: 88%; overflow-y: auto;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .modal { animation: slideUp 0.2s ease; }
+  }
+  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-handle { width: 34px; height: 4px; background: var(--line-strong); border-radius: 2px; margin: 0 auto 12px; }
+  .modal-title { font-family: var(--serif); font-size: 1.05rem; text-align: center; margin: 0 0 0.9rem; }
+
+  footer { max-width: 420px; text-align: center; color: var(--ink-faint); font-size: 0.72rem; font-family: var(--mono); }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <header class="intro">
+    <p class="eyebrow">Demokratia — mockup cliccabile, v0.2</p>
+    <h1>Prototipo UI/UX</h1>
+    <p>Naviga come in un'app reale — nessuna build richiesta. Vedi anche il <a href="design-system.html">design system</a>.</p>
+  </header>
+
+  <div class="phone">
+    <div class="phone-screen">
+      <div class="notch"></div>
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>civico · no profit</span>
+      </div>
+      <div class="screens" id="screens"></div>
+      <nav class="bottom-nav" id="bottom-nav">
+        <button class="nav-item" data-tab="feed">
+          <span class="nav-glyph"></span><span class="nav-label">Feed</span>
+        </button>
+        <button class="nav-fab" id="fab-create" aria-label="Crea evento">+</button>
+        <button class="nav-item" data-tab="notifiche">
+          <span class="nav-glyph"></span><span class="nav-label">Notifiche</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <footer>demokratia / docs / mockup — prototipo interno, non per la pubblicazione</footer>
+</div>
+
+<script>
+  // ---------- data ----------
+  const CATEGORIES = [
+    { id: "corteo", label: "Corteo" },
+    { id: "manifestazione", label: "Manifestazione" },
+    { id: "assemblea", label: "Assemblea" },
+    { id: "dibattito", label: "Dibattito" },
+    { id: "raccolta", label: "Raccolta firme" },
+    { id: "civico", label: "Cultura civica" },
+    { id: "sciopero", label: "Sciopero" },
+    { id: "altro", label: "Altro" },
+  ];
+
+  const ORG = {
+    id: "org-clima",
+    name: "Comitato Bologna Clima",
+    mark: "CB",
+    kind: "Comitato cittadino · Bologna",
+    follower: 1284,
+    published: 37,
+    since: 2019,
+  };
+
+  const EVENTS = [
+    { id: "e1", when: "GIO 6 AGO · 18:00", title: "Corteo per il clima", tag: "corteo", place: "Piazza Maggiore", org: ORG.name, going: 342, verified: true,
+      desc: "Ritrovo in Piazza Maggiore, corteo verso Piazza XX Settembre. Organizzato da Comitato Bologna Clima." },
+    { id: "e2", when: "VEN 7 AGO · 20:30", title: "Dibattito: casa e affitti a Bologna", tag: "dibattito", place: "Circolo Arci Guernelli", org: "Arci Bologna", going: 58, verified: false,
+      desc: "Confronto pubblico con esperti e residenti sul tema dell'accesso alla casa in città." },
+    { id: "e3", when: "SAB 8 AGO · 10:00", title: "Raccolta firme: trasporto pubblico gratuito", tag: "raccolta", place: "Piazza VIII Agosto", org: "Comitato Trasporti Bene Comune", going: 120, verified: false,
+      desc: "Banchetto per la raccolta firme a sostegno della proposta di trasporto pubblico gratuito." },
+    { id: "e4", when: "LUN 10 AGO · 17:00", title: "Presidio contro la chiusura del centro sociale", tag: "sciopero", place: "Via Fioravanti", org: "Rete Centri Sociali Bologna", going: 210, verified: true,
+      desc: "Presidio pacifico davanti alla sede del centro sociale a rischio chiusura." },
+    { id: "e5", when: "MER 2 SET · 19:00", title: "Assemblea mensile aperta", tag: "assemblea", place: "Sede Comitato Bologna Clima", org: ORG.name, going: 34, verified: true,
+      desc: "Assemblea pubblica mensile, aperta a chiunque voglia partecipare alle decisioni del comitato." },
+  ];
+
+  const NOTIFICATIONS = [
+    { text: "<b>Domani</b> — Corteo per il clima, ore 18:00, Piazza Maggiore.", time: "2 ore fa", read: false, eventId: "e1" },
+    { text: "Comitato Bologna Clima ha pubblicato un nuovo evento: Assemblea mensile aperta.", time: "ieri", read: false, eventId: "e5" },
+    { text: "Orario aggiornato: “Dibattito casa e affitti” ora inizia alle 20:30.", time: "3 giorni fa", read: true, eventId: "e2" },
+    { text: "Tra una settimana — Raccolta firme trasporto pubblico gratuito.", time: "5 giorni fa", read: true, eventId: "e3" },
+  ];
+
+  const catLabel = (id) => (CATEGORIES.find((c) => c.id === id) || {}).label || id;
+
+  // ---------- state ----------
+  const state = {
+    onboarded: false,
+    tab: "feed",
+    pushStack: [], // {screen, data}
+    feedFilter: "all", // all | week | near
+    feedCat: null,
+    joined: new Set(),
+    reminders: new Set(["1w", "1d"]),
+    following: new Set(),
+    obStep: 1,
+    obCity: "Bologna",
+    obCats: new Set(["corteo", "assemblea"]),
+  };
+
+  const screensEl = document.getElementById("screens");
+  const bottomNav = document.getElementById("bottom-nav");
+
+  // ---------- render ----------
+  function render() {
+    const top = state.pushStack[state.pushStack.length - 1];
+    let html = "";
+    if (!state.onboarded) {
+      html = renderOnboarding();
+      bottomNav.style.display = "none";
+    } else if (top) {
+      if (top.screen === "detail") html = renderDetail(top.data);
+      if (top.screen === "org") html = renderOrg();
+      bottomNav.style.display = "none";
+    } else {
+      if (state.tab === "feed") html = renderFeed();
+      if (state.tab === "notifiche") html = renderNotifications();
+      if (state.tab === "profilo") html = renderProfile();
+      bottomNav.style.display = "flex";
+      Array.from(bottomNav.querySelectorAll(".nav-item")).forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === state.tab);
+      });
+    }
+    screensEl.innerHTML = `<div class="screen active">${html}</div>`;
+    wireScreen();
+  }
+
+  function renderOnboarding() {
+    if (state.obStep === 1) {
+      return `
+        <div class="body-scroll" style="padding-top:22px">
+          <span class="ob-step">passo 1 di 2</span>
+          <div class="ob-progress"><span class="done"></span><span></span></div>
+          <div class="ob-title">Quale città vuoi seguire?</div>
+          <p style="color:var(--ink-soft); font-size:0.8rem; line-height:1.5; margin:0 0 0.8rem;">Potrai aggiungerne altre in seguito.</p>
+          <div class="field"><label>Città</label><input id="ob-city" value="${state.obCity}" /></div>
+          <button class="btn" data-action="ob-next">Continua</button>
+        </div>`;
+    }
+    const cats = CATEGORIES.map(
+      (c) => `<span class="chip ${state.obCats.has(c.id) ? "on" : ""}" data-action="ob-cat" data-cat="${c.id}">${c.label}</span>`
+    ).join("");
+    return `
+      <div class="body-scroll" style="padding-top:22px">
+        <span class="ob-step">passo 2 di 2</span>
+        <div class="ob-progress"><span class="done"></span><span class="done"></span></div>
+        <div class="ob-title">Cosa vuoi vedere per primo?</div>
+        <p style="color:var(--ink-soft); font-size:0.8rem; line-height:1.5; margin:0 0 0.8rem;">Puoi cambiarlo quando vuoi — serve solo a pre-filtrare il feed, mai a un ranking.</p>
+        <div class="chip-row">${cats}</div>
+        <button class="btn" data-action="ob-finish">Fatto — vai al feed</button>
+        <button class="skip-link" data-action="ob-finish">Salta per ora</button>
+      </div>`;
+  }
+
+  function eventCard(ev) {
+    const isJoined = state.joined.has(ev.id);
+    const avatars = ["C", "M", "R"].map((i) => `<span>${i}</span>`).join("");
+    return `
+      <div class="event-card" data-action="open-event" data-id="${ev.id}">
+        <span class="when">${ev.when}</span>
+        <h4>${ev.title}</h4>
+        <div class="meta">
+          <span class="tag ${ev.tag}">${catLabel(ev.tag)}</span>
+          <span>${ev.place}</span>
+          ${ev.verified ? '<span style="color:var(--accent)">✓ verificato</span>' : ""}
+        </div>
+        <div class="card-foot">
+          <div class="avatars-stack">${avatars}</div>
+          <span class="going-count">+${ev.going} partecipano</span>
+        </div>
+      </div>`;
+  }
+
+  function renderFeed() {
+    let list = EVENTS.slice();
+    if (state.feedFilter === "week") list = list.slice(0, 3);
+    if (state.feedFilter === "near") list = list.slice(1, 4);
+    if (state.feedCat) list = list.filter((e) => e.tag === state.feedCat);
+    const cards = list.length
+      ? list.map(eventCard).join("")
+      : `<p style="color:var(--ink-faint); font-size:0.8rem; text-align:center; margin-top:2rem;">Nessun evento con questi filtri.</p>`;
+    const catChips = CATEGORIES.slice(0, 5)
+      .map((c) => `<span class="chip ${state.feedCat === c.id ? "on" : ""}" data-action="feed-cat" data-cat="${c.id}">${c.label}</span>`)
+      .join("");
+    return `
+      <div class="topbar"><div>Prossimi eventi</div><div class="city">${state.obCity}</div></div>
+      <div class="body-scroll">
+        <div class="chip-row">
+          <span class="chip ${state.feedFilter === "all" ? "on" : ""}" data-action="feed-filter" data-f="all">Tutti</span>
+          <span class="chip ${state.feedFilter === "week" ? "on" : ""}" data-action="feed-filter" data-f="week">Questa settimana</span>
+          <span class="chip ${state.feedFilter === "near" ? "on" : ""}" data-action="feed-filter" data-f="near">Vicino a me</span>
+        </div>
+        <div class="chip-row">${catChips}</div>
+        ${cards}
+      </div>`;
+  }
+
+  function renderDetail(ev) {
+    const isJoined = state.joined.has(ev.id);
+    const reminderChip = (id, label) =>
+      `<span class="chip ${state.reminders.has(id) ? "on" : ""}" data-action="toggle-reminder" data-r="${id}">${label}</span>`;
+    return `
+      <div class="pushbar">
+        <button class="back-btn" data-action="back">←</button>
+        <div class="title">${catLabel(ev.tag)}</div>
+      </div>
+      <div class="body-scroll">
+        <h3 style="font-family:var(--serif); font-weight:400; font-size:1.1rem; margin:0 0 0.6rem;">${ev.title}</h3>
+        <div class="map-block">mappa · ${ev.place}</div>
+        <p style="margin:0 0 0.5rem; font-size:0.78rem; color:var(--ink-soft); line-height:1.5;">${ev.desc}</p>
+        <div class="chip-row">
+          <span class="chip">${ev.when}</span>
+          <span class="chip" data-action="open-org">${ev.org} →</span>
+          ${ev.verified ? '<span class="chip">Organizzatore verificato</span>' : ""}
+        </div>
+        <button class="btn ${isJoined ? "joined" : ""}" data-action="toggle-join" data-id="${ev.id}">
+          ${isJoined ? "✓ Parteciperò" : "Parteciperò"}
+        </button>
+        <div class="divider"></div>
+        <label style="font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);">Promemoria</label>
+        <div class="chip-row" style="margin-top:0.4rem;">
+          ${reminderChip("1w", "1 settimana prima")}
+          ${reminderChip("1d", "1 giorno prima")}
+          ${reminderChip("1h", "1 ora prima")}
+        </div>
+        <button class="btn ghost" style="margin-top:0.6rem;" data-action="report">Segnala questo evento</button>
+      </div>`;
+  }
+
+  function renderOrg() {
+    const following = state.following.has(ORG.id);
+    const orgEvents = EVENTS.filter((e) => e.org === ORG.name);
+    return `
+      <div class="pushbar">
+        <button class="back-btn" data-action="back">←</button>
+        <div class="title">Organizzazione</div>
+      </div>
+      <div class="body-scroll">
+        <div class="org-header">
+          <div class="org-mark">${ORG.mark}</div>
+          <div>
+            <div style="font-family:var(--serif); font-size:1rem;">${ORG.name}</div>
+            <div style="font-size:0.7rem; color:var(--ink-faint);">${ORG.kind}</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div><strong>${ORG.follower + (following ? 1 : 0)}</strong><span>Follower</span></div>
+          <div><strong>${ORG.published}</strong><span>Eventi pubblicati</span></div>
+          <div><strong>${ORG.since}</strong><span>Attivo dal</span></div>
+        </div>
+        <button class="btn ${following ? "joined" : ""}" data-action="toggle-follow">${following ? "✓ Segui già" : "Segui"}</button>
+        <div class="divider"></div>
+        <div class="section-label">Prossimi eventi</div>
+        ${orgEvents.map(eventCard).join("")}
+      </div>`;
+  }
+
+  function renderNotifications() {
+    const rows = NOTIFICATIONS.map(
+      (n) => `
+      <div class="notif-row ${n.read ? "read" : ""}" data-action="open-event" data-id="${n.eventId}">
+        <div class="notif-dot"></div>
+        <div><p>${n.text}</p><time>${n.time}</time></div>
+      </div>`
+    ).join("");
+    return `
+      <div class="topbar"><div>Notifiche</div></div>
+      <div class="body-scroll">${rows}</div>`;
+  }
+
+  function renderProfile() {
+    return `
+      <div class="topbar"><div>Il tuo profilo</div></div>
+      <div class="body-scroll">
+        <div class="profile-row"><span class="lbl">Città seguite</span><span class="val">${state.obCity}</span></div>
+        <div class="profile-row"><span class="lbl">Organizzazioni seguite</span><span class="val">${state.following.size}</span></div>
+        <div class="profile-row"><span class="lbl">Eventi salvati</span><span class="val">${state.joined.size}</span></div>
+        <div class="profile-row"><span class="lbl">Reminder predefiniti</span><span class="val">${state.reminders.size ? Array.from(state.reminders).join(", ") : "nessuno"}</span></div>
+        <div class="divider"></div>
+        <button class="btn">Crea la tua organizzazione</button>
+        <button class="btn ghost" style="margin-top:0.5rem;">Esporta o cancella i miei dati</button>
+        <button class="btn danger" style="margin-top:0.5rem;" data-action="restart-onboarding">Rivedi onboarding</button>
+      </div>`;
+  }
+
+  function renderCreateModal() {
+    return `
+      <div class="modal-handle"></div>
+      <div class="modal-title">Nuovo evento</div>
+      <div class="field"><label>Titolo</label><input placeholder="Assemblea pubblica: piano traffico" /></div>
+      <div class="field">
+        <label>Categoria</label>
+        <select>${CATEGORIES.map((c) => `<option>${c.label}</option>`).join("")}</select>
+      </div>
+      <div class="field"><label>Data e ora</label><input placeholder="12 ago 2026 · 18:30" /></div>
+      <div class="field"><label>Luogo</label><input placeholder="Sala Consiliare, Bologna" /></div>
+      <div class="field">
+        <label>Pubblica come</label>
+        <div class="segmented">
+          <button type="button" class="on" data-action="publish-as" data-v="citizen">Cittadino</button>
+          <button type="button" data-action="publish-as" data-v="org">${ORG.name}</button>
+        </div>
+      </div>
+      <div class="field"><label>Descrizione</label><textarea placeholder="Discussione pubblica sul nuovo piano..."></textarea></div>
+      <button class="btn" data-action="publish-event">Pubblica evento</button>
+      <button class="btn ghost" style="margin-top:0.5rem;" data-action="close-modal">Annulla</button>`;
+  }
+
+  // ---------- wiring ----------
+  function wireScreen() {
+    screensEl.querySelectorAll("[data-action]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const action = el.dataset.action;
+        if (action === "ob-next") {
+          state.obCity = document.getElementById("ob-city").value || state.obCity;
+          state.obStep = 2;
+          render();
+        } else if (action === "ob-cat") {
+          const c = el.dataset.cat;
+          state.obCats.has(c) ? state.obCats.delete(c) : state.obCats.add(c);
+          render();
+        } else if (action === "ob-finish") {
+          state.onboarded = true;
+          render();
+        } else if (action === "restart-onboarding") {
+          state.onboarded = false;
+          state.obStep = 1;
+          render();
+        } else if (action === "feed-filter") {
+          state.feedFilter = el.dataset.f;
+          render();
+        } else if (action === "feed-cat") {
+          const c = el.dataset.cat;
+          state.feedCat = state.feedCat === c ? null : c;
+          render();
+        } else if (action === "open-event") {
+          const ev = EVENTS.find((x) => x.id === el.dataset.id);
+          if (ev) pushScreen("detail", ev);
+        } else if (action === "open-org") {
+          pushScreen("org");
+        } else if (action === "back") {
+          state.pushStack.pop();
+          render();
+        } else if (action === "toggle-join") {
+          const id = el.dataset.id;
+          state.joined.has(id) ? state.joined.delete(id) : state.joined.add(id);
+          render();
+        } else if (action === "toggle-reminder") {
+          const r = el.dataset.r;
+          state.reminders.has(r) ? state.reminders.delete(r) : state.reminders.add(r);
+          render();
+        } else if (action === "toggle-follow") {
+          state.following.has(ORG.id) ? state.following.delete(ORG.id) : state.following.add(ORG.id);
+          render();
+        } else if (action === "report") {
+          el.textContent = "Segnalazione inviata ai moderatori";
+          el.disabled = true;
+        }
+      });
+    });
+  }
+
+  function pushScreen(screen, data) {
+    state.pushStack.push({ screen, data });
+    render();
+  }
+
+  bottomNav.querySelectorAll(".nav-item").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.tab = btn.dataset.tab;
+      state.pushStack = [];
+      render();
+    });
+  });
+
+  // ---------- modal ----------
+  let modalOverlay;
+  function openModal() {
+    if (!modalOverlay) {
+      modalOverlay = document.createElement("div");
+      modalOverlay.className = "modal-overlay";
+      modalOverlay.innerHTML = `<div class="modal">${renderCreateModal()}</div>`;
+      document.querySelector(".phone-screen").appendChild(modalOverlay);
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+      modalOverlay.querySelectorAll("[data-action]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          const action = el.dataset.action;
+          if (action === "publish-as") {
+            modalOverlay.querySelectorAll('[data-action="publish-as"]').forEach((b) => b.classList.remove("on"));
+            el.classList.add("on");
+          } else if (action === "publish-event") {
+            closeModal();
+            state.tab = "feed";
+            state.pushStack = [];
+            render();
+          } else if (action === "close-modal") {
+            closeModal();
+          }
+        });
+      });
+    }
+    modalOverlay.classList.add("open");
+  }
+  function closeModal() {
+    if (modalOverlay) modalOverlay.classList.remove("open");
+  }
+  document.getElementById("fab-create").addEventListener("click", openModal);
+
+  render();
+</script>
+</body>
+</html>
